@@ -10,6 +10,7 @@ namespace Gameplay.Game.Installers
             base.InstallBindings();
             Container.Bind<Contexts>().FromInstance(Contexts.sharedInstance).AsSingle();
             Container.Bind<IGameContext>().FromInstance(Contexts.sharedInstance.game).AsSingle();
+            Container.Bind<IInputContext>().FromInstance(Contexts.sharedInstance.input).AsSingle();
         }
     }
 }
