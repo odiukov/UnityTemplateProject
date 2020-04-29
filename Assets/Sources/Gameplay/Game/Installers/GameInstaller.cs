@@ -1,5 +1,4 @@
 using DuckLib.Core.Installers;
-using Gameplay.Common.Contexts;
 
 namespace Gameplay.Game.Installers
 {
@@ -7,10 +6,20 @@ namespace Gameplay.Game.Installers
     {
         public override void InstallBindings()
         {
+            InstallContexts();
+            InstallSystems();
             base.InstallBindings();
+        }
+
+        private void InstallContexts()
+        {
+            Container.BindInterfacesAndSelfTo(typeof(GameContext)).FromInstance(Contexts.sharedInstance.game);
+            Container.BindInterfacesAndSelfTo(typeof(InputContext)).FromInstance(Contexts.sharedInstance.input);
             Container.Bind<Contexts>().FromInstance(Contexts.sharedInstance).AsSingle();
-            Container.Bind<IGameContext>().FromInstance(Contexts.sharedInstance.game).AsSingle();
-            Container.Bind<IInputContext>().FromInstance(Contexts.sharedInstance.input).AsSingle();
+        }
+
+        private void InstallSystems()
+        {
         }
     }
 }
