@@ -14,13 +14,16 @@ namespace DuckLib.Core.Timers
 
         public void Tick(float deltaTime)
         {
-            if (RemainingSeconds < 0f) { return; }
+            if (RemainingSeconds < 0f)
+                return;
             RemainingSeconds -= deltaTime;
             CheckForTimerEnd();
         }
+
         private void CheckForTimerEnd()
         {
-            if (RemainingSeconds > 0f) { return; }
+            if (RemainingSeconds > 0f)
+                return;
             RemainingSeconds = 0f;
             OnTimerEnd?.Invoke();
         }
