@@ -3,7 +3,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Core
+namespace DuckLib.Core
 {
     [InitializeOnLoad]
     public class SmartMergeRegistrator
@@ -56,8 +56,8 @@ namespace Core
         //Unity calls the static constructor when the engine opens
         static SmartMergeRegistrator()
         {
-            var instaledVersionKey = EditorPrefs.GetString(SmartMergeRegistratorEditorPrefsKey);
-            if (instaledVersionKey != VersionKey)
+            var installedVersionKey = EditorPrefs.GetString(SmartMergeRegistratorEditorPrefsKey);
+            if (installedVersionKey != VersionKey)
                 SmartMergeRegister();
         }
     }

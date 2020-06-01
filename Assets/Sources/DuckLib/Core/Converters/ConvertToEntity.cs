@@ -17,13 +17,6 @@ namespace DuckLib.Core.Converters
         {
             var gameEntity = context.CreateEntity();
             gameObject.Convert(gameEntity);
-            gameObject.Link(gameEntity);
-        }
-
-        private void OnDestroy()
-        {
-            if (gameObject.GetEntityLink().entity != null)
-                gameObject.Unlink();
         }
     }
 }
