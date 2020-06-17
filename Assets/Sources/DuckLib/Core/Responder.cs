@@ -18,13 +18,13 @@ namespace DuckLib.Core
         public readonly Action<T> Result;
         public readonly Action<T> Fault;
 
-        protected Responder(Action<T> result, Action<T> fault)
+        public Responder(Action<T> result, Action<T> fault)
         {
             Result = result;
             Fault = fault;
         }
 
-        protected Responder(Action<T> result)
+        public Responder(Action<T> result)
         {
             Result = result;
         }

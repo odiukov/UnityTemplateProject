@@ -1,0 +1,15 @@
+{
+    "name": "DuckLib.Purchasing",
+    "references": [
+        "GUID:1208c94a6970c4ec385ffd9bf209597e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
