@@ -7,15 +7,20 @@ namespace Gameplay.Game.Installers
         public override void InstallBindings()
         {
             InstallContexts();
+            InstallServices();
             InstallSystems();
             base.InstallBindings();
         }
 
         private void InstallContexts()
         {
-            Container.BindInterfacesAndSelfTo(typeof(GameContext)).FromInstance(Contexts.sharedInstance.game);
-            Container.BindInterfacesAndSelfTo(typeof(InputContext)).FromInstance(Contexts.sharedInstance.input);
+            Container.BindInterfacesAndSelfTo<GameContext>().FromInstance(Contexts.sharedInstance.game);
+            Container.BindInterfacesAndSelfTo<InputContext>().FromInstance(Contexts.sharedInstance.input);
             Container.Bind<Contexts>().FromInstance(Contexts.sharedInstance).AsSingle();
+        }
+
+        private void InstallServices()
+        {
         }
 
         private void InstallSystems()
