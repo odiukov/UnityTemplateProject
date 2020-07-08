@@ -14,8 +14,8 @@ namespace Gameplay.Game.Installers
 
         private void InstallContexts()
         {
-            Container.BindInterfacesAndSelfTo<GameContext>().FromInstance(Contexts.sharedInstance.game);
-            Container.BindInterfacesAndSelfTo<InputContext>().FromInstance(Contexts.sharedInstance.input);
+            Container.BindInterfacesAndSelfTo<GameContext>().FromInstance(Contexts.sharedInstance.game).AsSingle();
+            Container.BindInterfacesAndSelfTo<InputContext>().FromInstance(Contexts.sharedInstance.input).AsSingle();
             Container.Bind<Contexts>().FromInstance(Contexts.sharedInstance).AsSingle();
         }
 
