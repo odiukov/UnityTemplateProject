@@ -1,0 +1,13 @@
+{
+  "name": "com.external.extenject",
+  "displayName": "Extenject",
+  "version": "2.0.0",
+  "unity": "2019.1",
+  "keywords": [
+    "DI",
+    "unity"
+  ],
+  "category": "Unity",
+  "description": "DI framework for Unity3D https://github.com/svermeulen/Extenject.\n\nFor more information of the current version please read changelog.",
+  "type": "library"
+}

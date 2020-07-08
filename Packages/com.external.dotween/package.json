@@ -1,0 +1,13 @@
+{
+ "name": "com.external.dotween",
+ "displayName": "DOTween",
+ "version": "1.0.2",
+ "unity": "2019.1",
+ "keywords": [
+        "Tween",
+        "unity"
+    ],
+ "category": "Unity",
+ "dependencies": { },
+ "description": "DOTween is a fast, efficient, fully type-safe object-oriented animation engine, optimized for C#. - http://dotween.demigiant.com/index.php .This package version is based on DOTween version 1.2.235"
+}

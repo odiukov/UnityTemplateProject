@@ -10,8 +10,6 @@
   ],
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-    "com.sschmid.entitas": "https://github.com/AlexanderDykov/Entitas-CSharp.git#1.13.0",
-    "com.svermeulen.extenject": "https://github.com/AlexanderDykov/Extenject.git#upm",
     "com.unity.ide.rider": "1.1.4",
     "com.unity.test-framework": "1.1.14",
     "com.unity.textmeshpro": "2.0.1",
@@ -51,15 +49,7 @@
   "lock": {
     "com.cysharp.unitask": {
       "revision": "HEAD",
-      "hash": "d6a056331933ca776799bb205475f4ea40493f08"
-    },
-    "com.sschmid.entitas": {
-      "revision": "1.13.0",
-      "hash": "553cf2119ceb7adba60adc8dc24b4d9e8cd10919"
-    },
-    "com.svermeulen.extenject": {
-      "revision": "upm",
-      "hash": "edcdbc34e07227ad7f0997fde3949ab6fc1c58d0"
+      "hash": "32f24cf8f86192d9cfbf649cfcc236d89389a496"
     }
   }
 }

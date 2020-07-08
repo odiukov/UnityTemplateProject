@@ -1,0 +1,21 @@
+{
+    "name": "Zenject",
+    "references": [
+        "UniRx"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.external.unirx",
+            "expression": "1.0.0",
+            "define": "ZEN_SIGNALS_ADD_UNIRX"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,12 @@
+{
+    "name": "com.external.entitas",
+    "displayName": "Entitas",
+    "version": "1.0.0",
+    "unity": "2019.2",
+    "keywords": [
+        "di",
+        "lib"
+    ],
+    "description": "The Entity Component System Framework for C# and Unity",
+    "dependencies": {}
+}
