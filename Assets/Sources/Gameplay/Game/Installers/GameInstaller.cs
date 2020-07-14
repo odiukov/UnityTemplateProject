@@ -1,5 +1,6 @@
 using DuckLib.Core.Installers;
 using DuckLib.Core.View;
+using Gameplay.Game.Features.Cleanup.Systems;
 using Gameplay.Game.Features.Initialize.Systems;
 using Gameplay.Game.Features.View.Systems;
 using Gameplay.Game.Services;
@@ -41,6 +42,7 @@ namespace Gameplay.Game.Installers
 
             // cleanup
             InstallUpdateSystem<GameCleanupSystems>();
+            InstallCommonSystem<DestroyAllEntitiesSystem>();
         }
     }
 }

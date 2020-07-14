@@ -13,13 +13,11 @@ namespace Gameplay.Game.View.Listeners
 
         public void RegisterListeners(GameEntity entity)
         {
-            Debug.Log("RegisterListeners");
             entity.AddPositionListener(this);
         }
 
         public void UnregisterListeners(GameEntity entity)
         {
-            Debug.Log("UnregisterListeners");
             entity.RemovePositionListener(this);
         }
     }

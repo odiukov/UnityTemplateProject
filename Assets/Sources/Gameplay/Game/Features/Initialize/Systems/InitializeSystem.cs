@@ -1,4 +1,3 @@
-using DG.Tweening;
 using Entitas;
 using Gameplay.Common.Contexts;
 using UnityEngine;
@@ -23,10 +22,7 @@ namespace Gameplay.Game.Features.Initialize.Systems
             // Destroy object after 2 seconds
             // DOTween.Sequence()
             //     .AppendInterval(2f)
-            //     .AppendCallback(() =>
-            // {
-            //     player.isDestruct = true;
-            // });
+            //     .AppendCallback(() => { player.isDestruct = true; });
         }
     }
 }
