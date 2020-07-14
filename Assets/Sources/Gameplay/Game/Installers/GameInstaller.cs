@@ -1,4 +1,7 @@
 using DuckLib.Core.Installers;
+using DuckLib.Core.View;
+using Gameplay.Game.Features.View.Systems;
+using Gameplay.Game.Services;
 
 namespace Gameplay.Game.Installers
 {
@@ -21,10 +24,12 @@ namespace Gameplay.Game.Installers
 
         private void InstallServices()
         {
+            Container.Bind<IViewService<GameEntity>>().To<GameViewService>().AsSingle();
         }
 
         private void InstallSystems()
         {
+            InstallUpdateSystem<ViewSystem>();
         }
     }
 }

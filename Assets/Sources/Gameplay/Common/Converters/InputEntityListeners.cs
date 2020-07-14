@@ -2,7 +2,7 @@ using DuckLib.Core.Converters;
 
 namespace Gameplay.Common.Converters
 {
-    public sealed class ConvertToInputEntity : ConvertToEntity<InputEntity>
+    public sealed class InputEntityListeners : ListenersComponent<InputEntity>
     {
     }
 }

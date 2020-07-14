@@ -9,7 +9,7 @@ namespace DuckLib.Core.Converters
         void Convert(TEntity entity);
     }
 
-    public abstract class ConvertToEntity<TEntity> : MonoBehaviour where TEntity : class, IEntity
+    public abstract class AutoConvertToEntity<TEntity> : MonoBehaviour where TEntity : class, IEntity
     {
         private TEntity _entity;
 
@@ -18,12 +18,6 @@ namespace DuckLib.Core.Converters
         {
             _entity = context.CreateEntity();
             gameObject.Convert(_entity);
-            gameObject.RegisterListeners(_entity);
-        }
-
-        private void OnDestroy()
-        {
-            gameObject.UnregisterListeners(_entity);
         }
     }
 }
