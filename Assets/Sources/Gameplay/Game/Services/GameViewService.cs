@@ -5,6 +5,8 @@ using DuckLib.Core.Converters;
 using DuckLib.Core.Extensions;
 using DuckLib.Core.View;
 using Entitas;
+using Gameplay.Game.Features.Position.Components;
+using Gameplay.Game.View.Listeners;
 using UnityEngine;
 using Zenject;
 using static Gameplay.Game.Services.Constants;
@@ -28,10 +30,7 @@ namespace Gameplay.Game.Services
             where T : Component, IViewController<GameEntity>
         {
             CreateEmptyObject(with: name)
-                .CreateController<T>()
-                .Convert(with: entity)
-                .AddListeners(@from: entity)
-                .RegisterListeners(with: entity);
+                .ConvertGameObjectToEntity<T>(entity);
 
             GameObject CreateEmptyObject(string with)
             {
@@ -46,9 +45,7 @@ namespace Gameplay.Game.Services
             where T : Component, IViewController<GameEntity>
         {
             LoadAndInstantiateObject(with: name)
-                .Convert(with: entity)
-                .AddListeners(@from: entity)
-                .RegisterListeners(with: entity);
+                .ConvertGameObjectToEntity<T>(entity);
 
             GameObject LoadAndInstantiateObject(string with) =>
                 _container.InstantiatePrefab(Resources.Load<GameObject>(with), Root(with));
@@ -58,10 +55,7 @@ namespace Gameplay.Game.Services
             where T : Component, IViewController<GameEntity>
         {
             FindObjectInScene(with: name)
-                .CreateController<T>()
-                .Convert(with: entity)
-                .AddListeners(@from: entity)
-                .RegisterListeners(with: entity);
+                .ConvertGameObjectToEntity<T>(entity);
 
             GameObject FindObjectInScene(string with) => GameObject.Find(with).gameObject;
         }
@@ -79,17 +73,28 @@ namespace Gameplay.Game.Services
     {
         private static readonly Dictionary<string, Type> _map = new Dictionary<string, Type>()
         {
-            // {nameof(PositionComponent), typeof(PositionListener)}
+            {nameof(PositionComponent), typeof(PositionListener)}
         };
 
-        public static GameObject CreateController<T>(this GameObject view)
+        public static void ConvertGameObjectToEntity<T>(this GameObject view, GameEntity entity)
             where T : Component, IViewController<GameEntity>
         {
-            view.AddComponent<T>();
+            view
+                .CreateController<T>()
+                .Convert(with: entity)
+                .AddListeners(@from: entity)
+                .RegisterListeners(with: entity);
+        }
+
+        private static GameObject CreateController<T>(this GameObject view)
+            where T : Component, IViewController<GameEntity>
+        {
+            if (view.GetComponent<T>() == null)
+                view.AddComponent<T>();
             return view;
         }
 
-        public static GameObject AddListeners(this GameObject view, IEntity @from)
+        private static GameObject AddListeners(this GameObject view, IEntity @from)
         {
             foreach (var component in @from.GetComponents().Select(c => c.GetType().Name))
             {
