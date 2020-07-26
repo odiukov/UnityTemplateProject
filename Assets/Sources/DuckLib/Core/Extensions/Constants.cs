@@ -1,4 +1,4 @@
-namespace Gameplay.Game.Services
+namespace DuckLib.Core.Extensions
 {
     public static class Constants
     {

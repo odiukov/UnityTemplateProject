@@ -1,4 +1,4 @@
-using DuckLib.Core.Converters;
+using DuckLib.Core.Extensions;
 using DuckLib.Core.View;
 using Entitas.VisualDebugging.Unity;
 using Gameplay.Game.View.Listeners;
@@ -8,13 +8,17 @@ namespace Gameplay.Game.View
 {
     public class UnityViewController : MonoBehaviour, IViewController<GameEntity>
     {
-        private GameEntity _gameEntity;
-
         public virtual void Convert(GameEntity entity)
         {
-            _gameEntity = entity;
-            _gameEntity.AddView(this);
+            Entity = entity;
+            Entity.AddView(this);
             AddDestructedListener();
+            OnStart();
+        }
+
+        protected virtual void OnStart()
+        {
+
         }
 
         private void AddDestructedListener()
@@ -30,6 +34,6 @@ namespace Gameplay.Game.View
             gameObject.DestroyGameObject();
         }
 
-        public GameEntity Entity => _gameEntity;
+        public GameEntity Entity { get; private set; }
     }
 }

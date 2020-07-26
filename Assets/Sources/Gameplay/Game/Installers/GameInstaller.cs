@@ -26,7 +26,7 @@ namespace Gameplay.Game.Installers
 
         private void InstallServices()
         {
-            Container.Bind<IViewService<GameEntity>>().To<GameViewService>().AsSingle();
+            Container.BindInterfacesTo<GameViewService>().AsSingle();
         }
 
         private void InstallSystems()

@@ -11,16 +11,18 @@ public static class GameComponentsLookup {
     public const int DestructListener = 0;
     public const int Destruct = 1;
     public const int Position = 2;
-    public const int Asset = 3;
-    public const int View = 4;
-    public const int PositionListener = 5;
+    public const int Player = 3;
+    public const int Asset = 4;
+    public const int View = 5;
+    public const int PositionListener = 6;
 
-    public const int TotalComponents = 6;
+    public const int TotalComponents = 7;
 
     public static readonly string[] componentNames = {
         "DestructListener",
         "Destruct",
         "Position",
+        "Player",
         "Asset",
         "View",
         "PositionListener"
@@ -30,6 +32,7 @@ public static class GameComponentsLookup {
         typeof(DestructListenerComponent),
         typeof(Gameplay.Game.Features.Cleanup.Components.DestructComponent),
         typeof(Gameplay.Game.Features.Position.Components.PositionComponent),
+        typeof(Gameplay.Game.Features.Tags.PlayerComponent),
         typeof(Gameplay.Game.Features.View.Components.AssetComponent),
         typeof(Gameplay.Game.Features.View.Components.ViewComponent),
         typeof(PositionListenerComponent)

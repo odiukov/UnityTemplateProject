@@ -1,11 +1,9 @@
 using DuckLib.Core.Converters;
-using UnityEngine;
+using Gameplay.Game.View;
 
 namespace Gameplay.Common.Converters
 {
-
-    [RequireComponent(typeof(GameEntityListeners))]
-    public sealed class AutoConvertToGameEntity : AutoConvertToEntity<GameEntity>
+    public sealed class AutoConvertToGameEntity : AutoConvertToEntity<UnityViewController, GameEntity>
     {
     }
 }
