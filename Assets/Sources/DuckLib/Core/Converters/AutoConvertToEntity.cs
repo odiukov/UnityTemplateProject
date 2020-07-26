@@ -17,11 +17,11 @@ namespace DuckLib.Core.Converters
         private TEntity _entity;
 
         [Inject]
-        public void Construct(IContext<TEntity> context)
+        public void Construct(IContext<TEntity> context, DiContainer container)
         {
             _entity = context.CreateEntity();
             gameObject
-                .CreateController<TController, TEntity>()
+                .CreateController<TController, TEntity>(container)
                 .ConvertGameObjectToEntity(_entity);
         }
     }

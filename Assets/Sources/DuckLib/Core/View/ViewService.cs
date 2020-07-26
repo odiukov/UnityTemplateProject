@@ -6,9 +6,11 @@ using static DuckLib.Core.Extensions.Constants;
 
 namespace DuckLib.Core.View
 {
-    public class ViewService<TEntity> : IViewService<TEntity> where TEntity : class, IEntity
+    public abstract class ViewService<TEntity> : IViewService<TEntity> where TEntity : class, IEntity
     {
         private readonly DiContainer _container;
+        private Transform _uiRoot;
+        private readonly Transform _viewRoot = new GameObject(ViewRootName).transform;
 
         protected ViewService(DiContainer container)
         {
@@ -16,19 +18,16 @@ namespace DuckLib.Core.View
             CacheUiRoot();
         }
 
-        private Transform _uiRoot;
-        private readonly Transform _viewRoot = new GameObject(ViewRootName).transform;
-
         public void CreateView<T>(TEntity entity, string name)
             where T : Component, IViewController<TEntity>
         {
             CreateEmptyObject(with: name)
-                .CreateController<T, TEntity>()
+                .CreateController<T, TEntity>(_container)
                 .ConvertGameObjectToEntity(entity);
 
             GameObject CreateEmptyObject(string with)
             {
-                GameObject newObject = new GameObject(with);
+                var newObject = new GameObject(with);
                 newObject.transform.SetParent(Root(with));
 
                 return newObject;
@@ -39,7 +38,7 @@ namespace DuckLib.Core.View
             where T : Component, IViewController<TEntity>
         {
             LoadAndInstantiateObject(with: name)
-                .CreateController<T, TEntity>()
+                .CreateController<T, TEntity>(_container)
                 .ConvertGameObjectToEntity(entity);
 
             GameObject LoadAndInstantiateObject(string with) =>
@@ -50,13 +49,13 @@ namespace DuckLib.Core.View
             where T : Component, IViewController<TEntity>
         {
             FindObjectInScene(with: name)
-                .CreateController<T, TEntity>()
+                .CreateController<T, TEntity>(_container)
                 .ConvertGameObjectToEntity(entity);
 
             GameObject FindObjectInScene(string with) => GameObject.Find(with).gameObject;
         }
 
-        private Transform Root(string name) => name.StartsWith("UI") ? _uiRoot : _viewRoot;
+        private Transform Root(string name) => name.StartsWith(UiViewPrefix) ? _uiRoot : _viewRoot;
 
         private void CacheUiRoot()
         {

@@ -5,6 +5,7 @@ using DuckLib.Core.Converters;
 using DuckLib.Core.View;
 using Entitas;
 using UnityEngine;
+using Zenject;
 
 namespace DuckLib.Core.Extensions
 {
@@ -45,12 +46,12 @@ namespace DuckLib.Core.Extensions
             return viewGo;
         }
 
-        public static GameObject CreateController<T, TEntity>(this GameObject view)
+        public static GameObject CreateController<T, TEntity>(this GameObject view, DiContainer container)
             where T : Component, IViewController<TEntity>
             where TEntity : class, IEntity
         {
             if (view.GetComponent<T>() == null)
-                view.AddComponent<T>();
+                container.InstantiateComponent<T>(view);
             return view;
         }
 
@@ -72,7 +73,7 @@ namespace DuckLib.Core.Extensions
                 var attributes = Attribute.GetCustomAttributes(component);
                 foreach (var attribute in attributes)
                 {
-                    if (attribute is AutoListener atr)
+                    if (attribute is AutoListenerAttribute atr)
                     {
                         view.AddComponent(atr.Type);
                     }

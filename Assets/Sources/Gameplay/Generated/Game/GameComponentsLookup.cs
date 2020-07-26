@@ -10,17 +10,23 @@ public static class GameComponentsLookup {
 
     public const int DestructListener = 0;
     public const int Destruct = 1;
-    public const int Position = 2;
-    public const int Player = 3;
-    public const int Asset = 4;
-    public const int View = 5;
-    public const int PositionListener = 6;
+    public const int Collided = 2;
+    public const int CollisionId = 3;
+    public const int Id = 4;
+    public const int Position = 5;
+    public const int Player = 6;
+    public const int Asset = 7;
+    public const int View = 8;
+    public const int PositionListener = 9;
 
-    public const int TotalComponents = 7;
+    public const int TotalComponents = 10;
 
     public static readonly string[] componentNames = {
         "DestructListener",
         "Destruct",
+        "Collided",
+        "CollisionId",
+        "Id",
         "Position",
         "Player",
         "Asset",
@@ -31,6 +37,9 @@ public static class GameComponentsLookup {
     public static readonly System.Type[] componentTypes = {
         typeof(DestructListenerComponent),
         typeof(Gameplay.Game.Features.Cleanup.Components.DestructComponent),
+        typeof(Gameplay.Game.Features.Collision.Components.CollidedComponent),
+        typeof(Gameplay.Game.Features.Collision.Components.CollisionIdComponent),
+        typeof(Gameplay.Game.Features.Collision.Components.IdComponent),
         typeof(Gameplay.Game.Features.Position.Components.PositionComponent),
         typeof(Gameplay.Game.Features.Tags.PlayerComponent),
         typeof(Gameplay.Game.Features.View.Components.AssetComponent),

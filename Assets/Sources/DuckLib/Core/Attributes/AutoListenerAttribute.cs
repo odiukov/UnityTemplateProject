@@ -3,11 +3,11 @@ using System;
 namespace DuckLib.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class)]
-    public class AutoListener : Attribute
+    public class AutoListenerAttribute : Attribute
     {
         public readonly Type Type;
 
-        public AutoListener(Type type)
+        public AutoListenerAttribute(Type type)
         {
             Type = type;
         }

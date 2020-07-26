@@ -1,4 +1,5 @@
 using DuckLib.Core.Installers;
+using DuckLib.Core.Services;
 using DuckLib.Core.View;
 using Gameplay.Game.Features.Cleanup.Systems;
 using Gameplay.Game.Features.Initialize.Systems;
@@ -27,6 +28,8 @@ namespace Gameplay.Game.Installers
         private void InstallServices()
         {
             Container.BindInterfacesTo<GameViewService>().AsSingle();
+            Container.BindInterfacesTo<GameCollidingViewRegister>().AsSingle();
+            Container.Bind<IIdentifierService>().To<GameIdentifierService>().AsSingle();
         }
 
         private void InstallSystems()
