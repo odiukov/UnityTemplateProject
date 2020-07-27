@@ -16,7 +16,6 @@ namespace Gameplay.Game.Features.Initialize.Systems
         public void Initialize()
         {
             var player = _context.CreateEntity();
-            player.isPlayer = true;
             player.AddAsset("Player");
             player.AddPosition(new Vector3(0, 0, 1));
 
