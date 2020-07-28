@@ -5,27 +5,27 @@ using UnityEngine.SocialPlatforms;
 
 namespace DuckLib.Social.Commands
 {
-    public class LoadAchievementsCommand : ICommand<IAchievement[]>
+    public class LoadAchievementDescriptionsCommand : ICommand<IAchievementDescription[]>
     {
         private readonly ISocialPlatform _socialPlatform;
 
-        public LoadAchievementsCommand(ISocialPlatform socialPlatform)
+        public LoadAchievementDescriptionsCommand(ISocialPlatform socialPlatform)
         {
             _socialPlatform = socialPlatform;
         }
 
-        public IObservable<IAchievement[]> Execute()
+        public IObservable<IAchievementDescription[]> Execute()
         {
-            return Observable.Create<IAchievement[]>(
+            return Observable.Create<IAchievementDescription[]>(
                 observer =>
                 {
-                    void OnLoadedAchievements(IAchievement[] achievements)
+                    void OnLoadedAchievements(IAchievementDescription[] achievements)
                     {
                         observer.OnNext(achievements);
                         observer.OnCompleted();
                     }
 
-                    _socialPlatform.LoadAchievements(OnLoadedAchievements);
+                    _socialPlatform.LoadAchievementDescriptions(OnLoadedAchievements);
                     return Disposable.Empty;
                 });
         }

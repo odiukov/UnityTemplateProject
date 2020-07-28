@@ -5,7 +5,7 @@ using UnityEngine.SocialPlatforms;
 
 namespace DuckLib.Social.Commands
 {
-    public class ReportProgressCommand : ICommand<ReportProgressArgs, bool>
+    public class ReportProgressCommand : ICommand<bool, ReportProgressArgs>
     {
         private readonly ISocialPlatform _socialPlatform;
 
@@ -18,11 +18,13 @@ namespace DuckLib.Social.Commands
         {
             return Observable.Create<bool>(observer =>
             {
-                _socialPlatform.ReportProgress(args.AchievementId, args.Score, result =>
+                void OnProgressReported(bool success)
                 {
-                    observer.OnNext(result);
+                    observer.OnNext(success);
                     observer.OnCompleted();
-                });
+                }
+
+                _socialPlatform.ReportProgress(args.AchievementId, args.Score, OnProgressReported);
                 return Disposable.Empty;
             });
         }

@@ -2,7 +2,7 @@ using System;
 
 namespace DuckLib.Core.Commands
 {
-    public interface ICommand<in TArgs, out TResult>
+    public interface ICommand<out TResult, in TArgs>
     {
         IObservable<TResult> Execute(TArgs args);
     }

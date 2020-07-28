@@ -8,7 +8,7 @@ using UnityEngine.Purchasing;
 
 namespace DuckLib.Purchasing.UnityInApp.Commands
 {
-    public sealed class PurchaseCommand : ICommand<InAppPurchaseCommandArgs, InAppPurchaseCommandResult>
+    public sealed class PurchaseCommand : ICommand<InAppPurchaseCommandResult, InAppPurchaseCommandArgs>
     {
         private readonly IInAppController _controller;
 

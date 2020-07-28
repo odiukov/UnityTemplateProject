@@ -18,23 +18,17 @@ namespace DuckLib.Social.Commands
         {
             return Observable.Create<AuthenticateResult>(observer =>
             {
-                if (!_socialPlatform.localUser.authenticated)
+                void OnAuthenticate(bool isAuthenticated, string message)
                 {
-                    _socialPlatform.localUser.Authenticate((result, message) =>
+                    observer.OnNext(new AuthenticateResult
                     {
-                        observer.OnNext(new AuthenticateResult()
-                        {
-                            Result = result,
-                            Message = message
-                        });
-                        observer.OnCompleted();
+                        Result = isAuthenticated,
+                        Message = message
                     });
-                }
-                else
-                {
-                    observer.OnNext(new AuthenticateResult());
                     observer.OnCompleted();
                 }
+
+                _socialPlatform.localUser.Authenticate(OnAuthenticate);
                 return Disposable.Empty;
             });
         }

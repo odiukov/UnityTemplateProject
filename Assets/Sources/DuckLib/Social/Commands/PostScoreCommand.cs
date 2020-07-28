@@ -5,7 +5,7 @@ using UnityEngine.SocialPlatforms;
 
 namespace DuckLib.Social.Commands
 {
-    public class PostScoreCommand : ICommand<PostScoreArgs, bool>
+    public class PostScoreCommand : ICommand<bool, PostScoreArgs>
     {
         private readonly ISocialPlatform _socialPlatform;
 
@@ -18,11 +18,13 @@ namespace DuckLib.Social.Commands
         {
             return Observable.Create<bool>(observer =>
             {
-                _socialPlatform.ReportScore(args.Score, args.LeaderboardId, result =>
+                void OnScoreReported(bool success)
                 {
-                    observer.OnNext(result);
+                    observer.OnNext(success);
                     observer.OnCompleted();
-                });
+                }
+
+                _socialPlatform.ReportScore(args.Score, args.LeaderboardId, OnScoreReported);
                 return Disposable.Empty;
             });
         }

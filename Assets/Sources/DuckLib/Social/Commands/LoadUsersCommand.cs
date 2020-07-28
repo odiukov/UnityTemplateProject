@@ -1,31 +1,32 @@
 using System;
+using System.Collections.Generic;
 using DuckLib.Core.Commands;
 using UniRx;
 using UnityEngine.SocialPlatforms;
 
 namespace DuckLib.Social.Commands
 {
-    public class LoadAchievementsCommand : ICommand<IAchievement[]>
+    public class LoadUsersCommand : ICommand<IUserProfile[], string[]>
     {
         private readonly ISocialPlatform _socialPlatform;
 
-        public LoadAchievementsCommand(ISocialPlatform socialPlatform)
+        public LoadUsersCommand(ISocialPlatform socialPlatform)
         {
             _socialPlatform = socialPlatform;
         }
 
-        public IObservable<IAchievement[]> Execute()
+        public IObservable<IUserProfile[]> Execute(string[] userIds)
         {
-            return Observable.Create<IAchievement[]>(
+            return Observable.Create<IUserProfile[]>(
                 observer =>
                 {
-                    void OnLoadedAchievements(IAchievement[] achievements)
+                    void OnLoadedUsers(IUserProfile[] achievements)
                     {
                         observer.OnNext(achievements);
                         observer.OnCompleted();
                     }
 
-                    _socialPlatform.LoadAchievements(OnLoadedAchievements);
+                    _socialPlatform.LoadUsers(userIds, OnLoadedUsers);
                     return Disposable.Empty;
                 });
         }
