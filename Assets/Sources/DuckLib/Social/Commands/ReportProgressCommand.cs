@@ -1,10 +1,11 @@
-using DuckLib.Core;
+using System;
 using DuckLib.Core.Commands;
+using UniRx;
 using UnityEngine.SocialPlatforms;
 
 namespace DuckLib.Social.Commands
 {
-    public class ReportProgressCommand : CommandWithArgs<ReportProgressArgs>
+    public class ReportProgressCommand : ICommand<ReportProgressArgs, bool>
     {
         private readonly ISocialPlatform _socialPlatform;
 
@@ -13,26 +14,21 @@ namespace DuckLib.Social.Commands
             _socialPlatform = socialPlatform;
         }
 
-        protected override void OnStart()
+        public IObservable<bool> Execute(ReportProgressArgs args)
         {
-            new AuthenticateCommand(_socialPlatform)
-                .AddCallback(new Responder(OnAuthenticateResult, OnAuthenticateFault))
-                .Execute();
+            return Observable.Create<bool>(observer =>
+            {
+                _socialPlatform.ReportProgress(args.AchievementId, args.Score, result =>
+                {
+                    observer.OnNext(result);
+                    observer.OnCompleted();
+                });
+                return this;
+            });
         }
 
-        private void OnAuthenticateFault(string message)
+        public void Dispose()
         {
-            FinishCommand();
-        }
-
-        private void OnAuthenticateResult(string message)
-        {
-            _socialPlatform.ReportProgress(Args.AchievementId, Args.Score, OnLeaderboardUpdated);
-        }
-
-        private void OnLeaderboardUpdated(bool result)
-        {
-            FinishCommand();
         }
     }
 

@@ -1,9 +1,11 @@
+using System;
 using DuckLib.Core.Commands;
+using UniRx;
 using UnityEngine.SocialPlatforms;
 
 namespace DuckLib.Social.Commands
 {
-    public class AuthenticateCommand: CommandWithCallback<string>
+    public class AuthenticateCommand : ICommand<AuthenticateResult>
     {
         private readonly ISocialPlatform _socialPlatform;
 
@@ -12,17 +14,39 @@ namespace DuckLib.Social.Commands
             _socialPlatform = socialPlatform;
         }
 
-        protected override void OnStart()
+        public IObservable<AuthenticateResult> Execute()
         {
-            if (!_socialPlatform.localUser.authenticated)
-                _socialPlatform.localUser.Authenticate(OnAuthenticateResult);
-            else
-                FinishCommand(true);
+            return Observable.Create<AuthenticateResult>(observer =>
+            {
+                if (!_socialPlatform.localUser.authenticated)
+                {
+                    _socialPlatform.localUser.Authenticate((result, message) =>
+                    {
+                        observer.OnNext(new AuthenticateResult()
+                        {
+                            Result = result,
+                            Message = message
+                        });
+                        observer.OnCompleted();
+                    });
+                }
+                else
+                {
+                    observer.OnNext(new AuthenticateResult());
+                    observer.OnCompleted();
+                }
+                return this;
+            });
         }
 
-        private void OnAuthenticateResult(bool result, string message)
+        public void Dispose()
         {
-            FinishCommand(_socialPlatform.localUser.authenticated, message);
         }
+    }
+
+    public class AuthenticateResult
+    {
+        public bool Result = true;
+        public string Message;
     }
 }

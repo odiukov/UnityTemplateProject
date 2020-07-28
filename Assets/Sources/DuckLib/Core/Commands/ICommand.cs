@@ -11,9 +11,4 @@ namespace DuckLib.Core.Commands
     {
         IObservable<TResult> Execute();
     }
-
-    public interface ICommandWithArgs<in TArgs> : IDisposable
-    {
-        void Execute(TArgs args);
-    }
 }

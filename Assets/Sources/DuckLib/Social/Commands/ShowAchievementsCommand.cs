@@ -1,22 +1,32 @@
+using System;
+using DuckLib.Core.Commands;
+using UniRx;
 using UnityEngine.SocialPlatforms;
 
 namespace DuckLib.Social.Commands
 {
-    public class ShowAchievementsCommand : AuthenticatedCommand
+    public class ShowAchievementsCommand : ICommand<bool>
     {
-        public ShowAchievementsCommand(ISocialPlatform socialPlatform) : base(socialPlatform)
+        private readonly ISocialPlatform _socialPlatform;
+
+        public ShowAchievementsCommand(ISocialPlatform socialPlatform)
         {
+            _socialPlatform = socialPlatform;
         }
 
-        protected override void OnAuthenticateFault(string message)
+        public IObservable<bool> Execute()
         {
-            FinishCommand();
+            return Observable.Create<bool>(observer =>
+            {
+                _socialPlatform.ShowAchievementsUI();
+                observer.OnNext(true);
+                observer.OnCompleted();
+                return this;
+            });
         }
 
-        protected override void OnAuthenticateResult(string message)
+        public void Dispose()
         {
-            SocialPlatform.ShowAchievementsUI();
-            FinishCommand();
         }
     }
 }

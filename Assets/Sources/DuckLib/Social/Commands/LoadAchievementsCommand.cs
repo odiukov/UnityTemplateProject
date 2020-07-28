@@ -1,10 +1,11 @@
-using DuckLib.Core;
+using System;
 using DuckLib.Core.Commands;
+using UniRx;
 using UnityEngine.SocialPlatforms;
 
 namespace DuckLib.Social.Commands
 {
-    public class LoadAchievementsCommand : CommandWithCallback<IAchievement[]>
+    public class LoadAchievementsCommand : ICommand<IAchievement[]>
     {
         private readonly ISocialPlatform _socialPlatform;
 
@@ -13,26 +14,23 @@ namespace DuckLib.Social.Commands
             _socialPlatform = socialPlatform;
         }
 
-        protected override void OnStart()
+        public IObservable<IAchievement[]> Execute()
         {
-            new AuthenticateCommand(_socialPlatform)
-                .AddCallback(new Responder(OnAuthenticateResult, OnAuthenticateFault))
-                .Execute();
+            return new AuthenticateCommand(_socialPlatform).Execute()
+                .ContinueWith(Observable.Create<IAchievement[]>(
+                    observer =>
+                    {
+                        _socialPlatform.LoadAchievements(achievements =>
+                        {
+                            observer.OnNext(achievements);
+                            observer.OnCompleted();
+                        });
+                        return this;
+                    }));
         }
 
-        private void OnAuthenticateFault(string message)
+        public void Dispose()
         {
-            FinishCommand(false);
-        }
-
-        private void OnAuthenticateResult(string message)
-        {
-            _socialPlatform.LoadAchievements(OnAchievementsLoaded);
-        }
-
-        private void OnAchievementsLoaded(IAchievement[] result)
-        {
-            FinishCommand(true, result);
         }
     }
 }

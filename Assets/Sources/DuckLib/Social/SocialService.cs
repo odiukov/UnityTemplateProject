@@ -1,4 +1,6 @@
+using System;
 using DuckLib.Social.Commands;
+using DuckLib.Social.Extensions;
 using UnityEngine.SocialPlatforms;
 
 namespace DuckLib.Social
@@ -14,32 +16,35 @@ namespace DuckLib.Social
 
         public void ShowLeaderboardUi()
         {
-            new ShowLeaderboardCommand(_socialPlatform).Execute();
+            _socialPlatform
+                .ContinueAfterAuthenticate(new ShowLeaderboardCommand(_socialPlatform).Execute());
         }
 
         public void ShowAchievementsUi()
         {
-            new ShowAchievementsCommand(_socialPlatform).Execute();
+            _socialPlatform
+                .ContinueAfterAuthenticate(new ShowAchievementsCommand(_socialPlatform).Execute());
         }
 
-        public void PostScore(long score, string leaderboardId)
+        public IObservable<bool> PostScore(long score, string leaderboardId)
         {
-            new PostScoreCommand(_socialPlatform)
-                .SetArgs(new PostScoreArgs
+            return _socialPlatform
+                .ContinueAfterAuthenticate(new PostScoreCommand(_socialPlatform).Execute(new PostScoreArgs
                 {
                     Score = score,
                     LeaderboardId = leaderboardId
-                }).Execute();
+                }));
         }
 
-        public void ReportProgress(string achievementId, double progress = 100)
+        public IObservable<bool> ReportProgress(string achievementId, double progress = 100)
         {
-            new ReportProgressCommand(_socialPlatform)
-                .SetArgs(new ReportProgressArgs
-                {
-                    Score = progress,
-                    AchievementId = achievementId
-                }).Execute();
+            return _socialPlatform
+                .ContinueAfterAuthenticate(new ReportProgressCommand(_socialPlatform)
+                    .Execute(new ReportProgressArgs
+                    {
+                        Score = progress,
+                        AchievementId = achievementId
+                    }));
         }
 
         public static int ProgressProportion(int currentValue, int totalValue)
