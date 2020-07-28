@@ -2,6 +2,7 @@ using System;
 
 namespace DuckLib.Core.Commands
 {
+    // TODO: replace callback with unirx or unitask
     public abstract class Command : IDisposable
     {
         private bool _running;

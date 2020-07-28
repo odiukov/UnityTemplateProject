@@ -1,68 +1,82 @@
 #if UNITY_PURCHASING
+using System;
+using DuckLib.Core.Commands;
 using DuckLib.Purchasing.InApp;
 using DuckLib.Purchasing.InApp.Commands;
+using UniRx;
 using UnityEngine.Purchasing;
 
 namespace DuckLib.Purchasing.UnityInApp.Commands
 {
-    public class PurchaseCommand : InAppPurchaseCommand
+    public sealed class PurchaseCommand : ICommand<InAppPurchaseCommandArgs, InAppPurchaseCommandResult>
     {
-        protected override void OnStart()
-        {
-            Result.ProductType = Args.InAppProductType;
-            if (Controller is UnityInAppController unityInAppController && unityInAppController.IsInitialized())
-            {
-                var product = unityInAppController.StoreController.products.WithID(Args.Id);
+        private IInAppController _controller;
 
-                if (product != null && product.hasReceipt && (product.definition.type == ProductType.NonConsumable || product.definition.type == ProductType.Subscription))
+        public PurchaseCommand(IInAppController controller)
+        {
+            _controller = controller;
+        }
+
+        public IObservable<InAppPurchaseCommandResult> Execute(InAppPurchaseCommandArgs args)
+        {
+            return Observable.Create<InAppPurchaseCommandResult>(observer =>
+            {
+                var result = new InAppPurchaseCommandResult {ProductId = args.Id};
+                if (_controller is UnityInAppController unityInAppController && unityInAppController.IsInitialized())
                 {
-                    FinishCommandWithResult(true);
-                }
-                else if (product != null && product.availableToPurchase)
-                {
-                    unityInAppController.PurchaseSuccess += OnPurchaseSuccess;
-                    unityInAppController.PurchaseFailed += OnPurchaseFailed;
-                    unityInAppController.StoreController.InitiatePurchase(product);
+                    var product = unityInAppController.StoreController.products.WithID(args.Id);
+
+                    if (product != null && product.hasReceipt &&
+                        (product.definition.type == ProductType.NonConsumable ||
+                         product.definition.type == ProductType.Subscription))
+                    {
+                        observer.OnNext(result);
+                        observer.OnCompleted();
+                    }
+
+                    if (product != null && product.availableToPurchase)
+                    {
+                        unityInAppController.PurchaseSuccess += productEvent =>
+                        {
+                            if (args.Id == productEvent.purchasedProduct.definition.id)
+                            {
+                                observer.OnNext(result);
+                                observer.OnCompleted();
+                            }
+                            else
+                            {
+                                observer.OnError(new OperationCanceledException("Wrong result id"));
+                                observer.OnCompleted();
+                            }
+                        };
+                        unityInAppController.PurchaseFailed += (product1, reason) =>
+                        {
+                            observer.OnError(new OperationCanceledException(reason.ToString()));
+                            observer.OnCompleted();
+                        };
+                        unityInAppController.StoreController.InitiatePurchase(product);
+                    }
+                    else
+                    {
+                        observer.OnError(
+                            new OperationCanceledException("Purchase failed, Product is not available to purchase"));
+                        observer.OnCompleted();
+                    }
                 }
                 else
                 {
-                    Result.FailReason = "Purchase failed, Product is not available to purchase";
-                    FinishCommandWithResult(false);
+                    observer.OnError(
+                        new OperationCanceledException("Purchase failed, Product is not available to purchase"));
+                    observer.OnCompleted();
                 }
-            }
-            else
-            {
-                Result.FailReason = "Purchase failed, InAppController not initialized";
-                FinishCommandWithResult(false);
-            }
+
+                return this;
+            });
         }
 
-        private void FinishCommandWithResult(bool result)
+        public void Dispose()
         {
-            FinishCommand(result, Result);
-        }
-
-        protected override void OnReleaseResources()
-        {
-            base.OnReleaseResources();
-            ((UnityInAppController) Controller).PurchaseSuccess -= OnPurchaseSuccess;
-            ((UnityInAppController) Controller).PurchaseFailed -= OnPurchaseFailed;
-        }
-
-        private void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
-        {
-            Result.FailReason = failureReason.ToString();
-            FinishCommandWithResult(false);
-        }
-
-        private void OnPurchaseSuccess(PurchaseEventArgs obj)
-        {
-            FinishCommandWithResult(Args.Id == obj.purchasedProduct.definition.id);
-        }
-
-
-        public PurchaseCommand(IInAppController controller) : base(controller)
-        {
+            _controller = default;
         }
     }
 }

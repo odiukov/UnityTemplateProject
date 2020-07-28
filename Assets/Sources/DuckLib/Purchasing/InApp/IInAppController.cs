@@ -1,19 +1,15 @@
 ﻿using System;
+using DuckLib.Purchasing.InApp.Commands;
 
 namespace DuckLib.Purchasing.InApp
 {
     public interface IInAppController
     {
-        string GetPriceString(InAppProductType productType);
-
-        string GetLocalizedPriceString(InAppProductType productType);
-
+        string GetPriceString(InAppInfo product);
+        string GetLocalizedPriceString(InAppInfo product);
         bool IsInitialized();
-
-        bool IsPurchased(InAppProductType productType);
-
-        void MakePurchase(InAppProductType productType, Action<InAppPurchaseCommandResult> callback);
-
-        void RestorePurchases(Action<bool> callback);
+        bool IsPurchased(InAppInfo product);
+        IObservable<InAppPurchaseCommandResult> MakePurchase(InAppInfo product);
+        IObservable<bool> RestorePurchases();
     }
 }

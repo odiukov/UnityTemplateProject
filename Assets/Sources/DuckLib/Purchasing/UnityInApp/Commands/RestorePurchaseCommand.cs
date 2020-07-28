@@ -1,10 +1,16 @@
 #if UNITY_PURCHASING
+using System;
 using DuckLib.Core.Commands;
 using DuckLib.Purchasing.InApp;
+using UniRx;
+
+#if UNITY_IOS
+using UnityEngine.Purchasing;
+#endif
 
 namespace DuckLib.Purchasing.UnityInApp.Commands
 {
-    public class RestorePurchaseCommand : CommandWithCallback<bool>
+    public sealed class RestorePurchaseCommand : ICommand<bool>
     {
         private readonly IInAppController _controller;
 
@@ -13,22 +19,36 @@ namespace DuckLib.Purchasing.UnityInApp.Commands
             _controller = controller;
         }
 
-        protected override void OnStart()
+        public IObservable<bool> Execute()
         {
-            var unityInAppController = (UnityInAppController) _controller;
-            if (unityInAppController.IsInitialized())
+            return Observable.Create<bool>(observer =>
             {
-#if UNITY_ANDROID
-                FinishCommand(true);
-#elif UNITY_IOS
-                unityInAppController.StoreExtensionProvider.GetExtension<IAppleExtensions>()
-                    .RestoreTransactions(result => FinishCommand(result));
+                var unityInAppController = (UnityInAppController) _controller;
+                if (unityInAppController.IsInitialized())
+                {
+#if UNITY_IOS
+                    unityInAppController.StoreExtensionProvider.GetExtension<IAppleExtensions>()
+                        .RestoreTransactions(result =>
+                        {
+                            observer.OnNext(result);
+                            observer.OnCompleted();
+                        });
+#else
+                    observer.OnNext(true);
+                    observer.OnCompleted();
 #endif
-            }
-            else
-            {
-                FinishCommand(false);
-            }
+                }
+                else
+                {
+                    observer.OnError(new OperationCanceledException("UnityInAppController is not initialized"));
+                }
+
+                return this;
+            });
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

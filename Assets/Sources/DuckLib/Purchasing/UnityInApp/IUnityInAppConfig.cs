@@ -6,8 +6,7 @@ namespace DuckLib.Purchasing.UnityInApp
 {
     public interface IUnityInAppConfig
     {
-        InAppInfo GetProduct(InAppProductType productType);
-        Dictionary<InAppProductKind, List<InAppProductType>> Products { get; }
+        IEnumerable<InAppInfo> Products { get; }
     }
 }
 #endif

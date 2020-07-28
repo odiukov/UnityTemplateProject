@@ -1,7 +1,6 @@
 #if UNITY_PURCHASING
 using System;
 using System.Collections.Generic;
-using DuckLib.Core;
 using DuckLib.Purchasing.InApp;
 using DuckLib.Purchasing.InApp.Commands;
 using DuckLib.Purchasing.UnityInApp.Commands;
@@ -9,7 +8,7 @@ using UnityEngine.Purchasing;
 
 namespace DuckLib.Purchasing.UnityInApp
 {
-    public class UnityInAppController : IStoreListener, IInAppController
+    public sealed class UnityInAppController : IStoreListener, IInAppController
     {
         public event Action<PurchaseEventArgs> PurchaseSuccess;
         public event Action<Product, PurchaseFailureReason> PurchaseFailed;
@@ -38,36 +37,26 @@ namespace DuckLib.Purchasing.UnityInApp
 
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-            foreach (var productsByKind in _unityInAppConfig.Products)
+            foreach (var product in _unityInAppConfig.Products)
             {
-                productsByKind.Value.ForEach(productType =>
-                    builder.AddProduct(_unityInAppConfig.GetProduct(productType).Id, _productTypeMap[productsByKind.Key]));
+                builder.AddProduct(product.Id, _productTypeMap[product.ProductKind]);
             }
 
             UnityPurchasing.Initialize(this, builder);
         }
 
-        public void MakePurchase(InAppProductType productType, Action<InAppPurchaseCommandResult> callback)
+        public IObservable<InAppPurchaseCommandResult> MakePurchase(InAppInfo product)
         {
-            new PurchaseCommand(this)
-                .AddCallback(new Responder<InAppPurchaseCommandResult>(callback, OnPurchaseError))
-                .SetArgs(new InAppPurchaseCommandArgs()
+            return new PurchaseCommand(this)
+                .Execute(new InAppPurchaseCommandArgs
                 {
-                    InAppProductType = productType,
-                    Id = _unityInAppConfig.GetProduct(productType).Id
-                }).Execute();
+                    Id = product.Id
+                });
         }
 
-        private void OnPurchaseError(InAppPurchaseCommandResult result)
+        public IObservable<bool> RestorePurchases()
         {
-            UnityEngine.Debug.LogError(result.ProductType + " " + result.FailReason);
-        }
-
-        public void RestorePurchases(Action<bool> callback)
-        {
-            new RestorePurchaseCommand(this)
-                .AddCallback(new Responder<bool>(callback))
-                .Execute();
+            return new RestorePurchaseCommand(this).Execute();
         }
 
         public bool IsInitialized()
@@ -75,26 +64,26 @@ namespace DuckLib.Purchasing.UnityInApp
             return StoreController != null && StoreExtensionProvider != null;
         }
 
-        public bool IsPurchased(InAppProductType productType)
+        public bool IsPurchased(InAppInfo product)
         {
             return StoreController != null &&
-                   StoreController.products.WithID(_unityInAppConfig.GetProduct(productType).Id).hasReceipt;
+                   StoreController.products.WithID(product.Id).hasReceipt;
         }
 
-        public string GetPriceString(InAppProductType productType)
+        public string GetPriceString(InAppInfo product)
         {
             return IsInitialized()
-                ? StoreController.products.WithID(_unityInAppConfig.GetProduct(productType).Id).metadata
+                ? StoreController.products.WithID(product.Id).metadata
                     .localizedPriceString
-                : _unityInAppConfig.GetProduct(productType).DefaultPrice;
+                : product.DefaultPrice;
         }
 
-        public string GetLocalizedPriceString(InAppProductType productType)
+        public string GetLocalizedPriceString(InAppInfo product)
         {
             return IsInitialized()
-                ? StoreController.products.WithID(_unityInAppConfig.GetProduct(productType).Id).metadata
+                ? StoreController.products.WithID(product.Id).metadata
                     .localizedPriceString
-                : _unityInAppConfig.GetProduct(productType).DefaultPrice;
+                : product.DefaultPrice;
         }
 
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
@@ -105,6 +94,7 @@ namespace DuckLib.Purchasing.UnityInApp
 
         public void OnInitializeFailed(InitializationFailureReason error)
         {
+            // TODO: replace with logger
             UnityEngine.Debug.LogError(error);
         }
 
