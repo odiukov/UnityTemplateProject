@@ -21,12 +21,8 @@ namespace DuckLib.Social.Commands
                 _socialPlatform.ShowLeaderboardUI();
                 observer.OnNext(true);
                 observer.OnCompleted();
-                return this;
+                return Disposable.Empty;
             });
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

@@ -10,7 +10,7 @@ namespace DuckLib.Purchasing.UnityInApp.Commands
 {
     public sealed class PurchaseCommand : ICommand<InAppPurchaseCommandArgs, InAppPurchaseCommandResult>
     {
-        private IInAppController _controller;
+        private readonly IInAppController _controller;
 
         public PurchaseCommand(IInAppController controller)
         {
@@ -70,13 +70,8 @@ namespace DuckLib.Purchasing.UnityInApp.Commands
                     observer.OnCompleted();
                 }
 
-                return this;
+                return Disposable.Empty;
             });
-        }
-
-        public void Dispose()
-        {
-            _controller = default;
         }
     }
 }

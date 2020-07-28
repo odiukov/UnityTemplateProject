@@ -43,12 +43,8 @@ namespace DuckLib.Purchasing.UnityInApp.Commands
                     observer.OnError(new OperationCanceledException("UnityInAppController is not initialized"));
                 }
 
-                return this;
+                return Disposable.Empty;
             });
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

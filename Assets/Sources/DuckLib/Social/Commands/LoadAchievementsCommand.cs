@@ -25,12 +25,8 @@ namespace DuckLib.Social.Commands
                             observer.OnNext(achievements);
                             observer.OnCompleted();
                         });
-                        return this;
+                        return Disposable.Empty;
                     }));
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

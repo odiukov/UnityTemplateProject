@@ -35,12 +35,8 @@ namespace DuckLib.Social.Commands
                     observer.OnNext(new AuthenticateResult());
                     observer.OnCompleted();
                 }
-                return this;
+                return Disposable.Empty;
             });
-        }
-
-        public void Dispose()
-        {
         }
     }
 
