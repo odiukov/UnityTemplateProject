@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 20
-  productGUID: 668f5cbe3d1cf42378fabe7b080b532c
+  productGUID: f2076ca61149947e09f2121d85697834
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: UnityTemplateProject
+  productName: Test
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -552,16 +552,7 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
-  scriptingDefineSymbols:
-    1: 
-    7: 
-    13: 
-    19: 
-    21: 
-    25: 
-    27: 
-    28: 
-    29: 
+  scriptingDefineSymbols: {}
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}
@@ -572,8 +563,7 @@ PlayerSettings:
   scriptingRuntimeVersion: 1
   gcIncremental: 0
   gcWBarrierValidation: 0
-  apiCompatibilityLevelPerPlatform:
-    Standalone: 3
+  apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: Template_2D
@@ -628,6 +618,7 @@ PlayerSettings:
   XboxOnePersistentLocalStorageSize: 0
   XboxOneXTitleMemory: 8
   XboxOneOverrideIdentityName: 
+  XboxOneOverrideIdentityPublisher: 
   vrEditorSettings:
     daydream:
       daydreamIconForeground: {fileID: 0}

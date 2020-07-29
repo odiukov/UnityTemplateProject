@@ -59,8 +59,14 @@ namespace DuckLib.Core.View
 
         private void CacheUiRoot()
         {
-            if (_uiRoot == null)
-                _uiRoot = GameObject.Find(UiRootName).transform;
+            if (_uiRoot != null) return;
+            var root = GameObject.Find(UiRootName);
+            if (root == null)
+            {
+                Debug.LogError("Scene should contains UIRoot object");
+                return;
+            }
+            _uiRoot = root.transform;
         }
     }
 }
