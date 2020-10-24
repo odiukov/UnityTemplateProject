@@ -1,0 +1,19 @@
+{
+    "name": "DuckLib.Purchasing.Unity",
+    "references": [
+        "GUID:c315a9072bac043da9b1ff11ae08541b",
+        "GUID:16946c4dc31e04bbe853957ad7fc4753",
+        "GUID:2a5b744d1fa6a453ba8e5035ae783ea8",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:60bfecf5cb232594891bc622f40d6bed"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

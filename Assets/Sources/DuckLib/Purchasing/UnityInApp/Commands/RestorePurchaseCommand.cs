@@ -19,7 +19,7 @@ namespace DuckLib.Purchasing.UnityInApp.Commands
             _controller = controller;
         }
 
-        public IObservable<bool> Execute()
+        public IObservable<bool> Execute(Unit args = default)
         {
             return Observable.Create<bool>(observer =>
             {

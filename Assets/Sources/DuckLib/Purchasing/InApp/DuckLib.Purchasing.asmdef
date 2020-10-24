@@ -1,9 +1,6 @@
 {
     "name": "DuckLib.Purchasing",
-    "references": [
-        "GUID:1208c94a6970c4ec385ffd9bf209597e",
-        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

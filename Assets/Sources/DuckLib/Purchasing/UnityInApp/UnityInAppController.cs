@@ -5,6 +5,7 @@ using DuckLib.Purchasing.InApp;
 using DuckLib.Purchasing.InApp.Commands;
 using DuckLib.Purchasing.UnityInApp.Commands;
 using UnityEngine.Purchasing;
+using DuckLib.Logger;
 
 namespace DuckLib.Purchasing.UnityInApp
 {
@@ -17,12 +18,14 @@ namespace DuckLib.Purchasing.UnityInApp
         public IExtensionProvider StoreExtensionProvider;
 
         private readonly IUnityInAppConfig _unityInAppConfig;
+        private readonly ILogger _logger;
 
         private readonly Dictionary<InAppProductKind, ProductType> _productTypeMap =
             new Dictionary<InAppProductKind, ProductType>();
 
-        public UnityInAppController(IUnityInAppConfig config)
+        public UnityInAppController(IUnityInAppConfig config, ILogger logger)
         {
+            _logger = logger;
             _unityInAppConfig = config;
             _productTypeMap.Add(InAppProductKind.Consumable, ProductType.Consumable);
             _productTypeMap.Add(InAppProductKind.NonConsumable, ProductType.NonConsumable);
@@ -94,8 +97,7 @@ namespace DuckLib.Purchasing.UnityInApp
 
         public void OnInitializeFailed(InitializationFailureReason error)
         {
-            // TODO: replace with logger
-            UnityEngine.Debug.LogError(error);
+            _logger.LogError(error);
         }
 
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
