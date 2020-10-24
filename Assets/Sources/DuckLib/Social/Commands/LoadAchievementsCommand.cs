@@ -14,7 +14,7 @@ namespace DuckLib.Social.Commands
             _socialPlatform = socialPlatform;
         }
 
-        public IObservable<IAchievement[]> Execute()
+        public IObservable<IAchievement[]> Execute(Unit args = default)
         {
             return Observable.Create<IAchievement[]>(
                 observer =>

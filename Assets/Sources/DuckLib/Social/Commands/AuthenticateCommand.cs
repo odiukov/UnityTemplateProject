@@ -14,7 +14,7 @@ namespace DuckLib.Social.Commands
             _socialPlatform = socialPlatform;
         }
 
-        public IObservable<AuthenticateResult> Execute()
+        public IObservable<AuthenticateResult> Execute(Unit args = default)
         {
             return Observable.Create<AuthenticateResult>(observer =>
             {

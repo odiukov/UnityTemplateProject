@@ -12,7 +12,7 @@ namespace DuckLib.Social.Extensions
         {
             var authCommand = new AuthenticateCommand(socialPlatform);
             return authCommand
-                .Execute()
+                .Execute(Unit.Default)
                 .Where(x => x.Result)
                 .ContinueWith(command);
         }
