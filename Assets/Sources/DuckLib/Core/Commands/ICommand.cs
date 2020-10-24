@@ -1,14 +1,18 @@
 using System;
+using UniRx;
 
 namespace DuckLib.Core.Commands
 {
     public interface ICommand<out TResult, in TArgs>
     {
-        IObservable<TResult> Execute(TArgs args);
+        IObservable<TResult> Execute(TArgs args = default);
     }
 
-    public interface ICommand<out TResult>
+    public interface ICommand<out TResult> : ICommand<TResult, Unit>
     {
-        IObservable<TResult> Execute();
+    }
+
+    public interface ICommand : ICommand<Unit>
+    {
     }
 }

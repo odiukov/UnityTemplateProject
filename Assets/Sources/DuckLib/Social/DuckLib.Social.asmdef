@@ -1,7 +1,7 @@
 {
     "name": "DuckLib.Social",
     "references": [
-        "GUID:1208c94a6970c4ec385ffd9bf209597e",
+        "GUID:c315a9072bac043da9b1ff11ae08541b",
         "GUID:560b04d1a97f54a4e82edc0cbbb69285"
     ],
     "includePlatforms": [],
