@@ -12,7 +12,12 @@ cp /BuildCommand.cs $(pwd)/Assets/Editor/
 
 echo "Building for $BUILD_TARGET"
 
-BUILD_FILE="ANDROID.apk"
+BUILD_FILE=$BUILD_TARGET
+
+if [[ "$BUILD_TARGET" == "Android" ]]; then
+  BUILD_FILE="Android.apk"
+fi
+
 BUILD_PATH_FULL="$GITHUB_WORKSPACE/Builds/$BUILD_TARGET/"
 CUSTOM_BUILD_PATH="$BUILD_PATH_FULL/$BUILD_FILE"
 
