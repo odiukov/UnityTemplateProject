@@ -2,8 +2,8 @@
 echo "${INPUT_CYPHER}" | tr -d '\r' > /Unity_v2019.x.ulf
 /opt/Unity/Editor/Unity -manualLicenseFile /Unity_v2019.x.ulf -batchmode -nographics -quit
 
-export BUILD_TARGET=${INPUT_PLATFORM}
-export BUILD_NAME=${INPUT_BUILDNAME}
+export BUILD_TARGET="${INPUT_PLATFORM}"
+export BUILD_NAME="${INPUT_BUILDNAME}"
 set -e
 set -x
 
@@ -12,14 +12,7 @@ cp /BuildCommand.cs $(pwd)/Assets/Editor/
 
 echo "Building for $BUILD_TARGET"
 
-BUILD_FILE=$BUILD_TARGET
-
-if [[ "$BUILD_TARGET" == "Android" ]]; then
-  BUILD_FILE="Android.apk"
-fi
-
 BUILD_PATH_FULL="$GITHUB_WORKSPACE/Build/$BUILD_TARGET"
-CUSTOM_BUILD_PATH="$BUILD_PATH_FULL/$BUILD_FILE"
 
 echo "Creating \"$BUILD_PATH_FULL\" if it does not exist."
 mkdir -p "$BUILD_PATH_FULL"
@@ -33,7 +26,7 @@ ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x2
   -buildTarget $BUILD_TARGET \
   -customBuildTarget $BUILD_TARGET \
   -customBuildName $BUILD_NAME \
-  -customBuildPath $CUSTOM_BUILD_PATH \
+  -customBuildPath $BUILD_PATH_FULL \
   -executeMethod BuildCommand.PerformBuild \
   -logFile /dev/stdout
 

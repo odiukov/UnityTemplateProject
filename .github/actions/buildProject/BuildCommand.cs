@@ -131,6 +131,8 @@ static class BuildCommand
         Console.WriteLine(":: Performing build");
 
         var buildTarget = GetBuildTarget();
+        Console.WriteLine(":: buildTarget= " + buildTarget);
+
 
         if (buildTarget == BuildTarget.Android) {
             HandleAndroidKeystore();
