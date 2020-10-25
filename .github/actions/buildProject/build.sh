@@ -52,4 +52,5 @@ fi
 # echo "::add-path::$BUILD_PATH_FULL"
 
 ls -alh $BUILD_PATH_FULL
-[ -n "$(ls -alh $BUILD_PATH_FULL)" ] # fail job if build folder is empty
+ls -la $BUILD_PATH_FULL
+[ -n "$(ls -A $BUILD_PATH_FULL)" ] # fail job if build folder is empty
