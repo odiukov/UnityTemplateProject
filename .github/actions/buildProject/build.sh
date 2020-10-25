@@ -19,6 +19,7 @@ ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x2
   -projectPath $(pwd) \
   -quit \
   -batchmode \
+  -nographics \
   -buildTarget $BUILD_TARGET \
   -customBuildTarget $BUILD_TARGET \
   -customBuildName $BUILD_NAME \
@@ -40,5 +41,5 @@ fi
 
 echo "::add-path::$BUILD_PATH"
 
-ls -la $BUILD_PATH
-[ -n "$(ls -A $BUILD_PATH)" ] # fail job if build folder is empty
+ls -alh $BUILD_PATH
+[ -n "$(ls -alh $BUILD_PATH)" ] # fail job if build folder is empty
