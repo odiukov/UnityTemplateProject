@@ -27,6 +27,8 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: create wrapper
+        run: gradle wrapper
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 #      - name: set up JDK 1.8
