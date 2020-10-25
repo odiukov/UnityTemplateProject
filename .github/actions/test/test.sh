@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cat "${INPUT_CYPHER}" | tr -d '\r' > /Unity_v2019.x.ulf
+echo "${INPUT_CYPHER}" | tr -d '\r' > /Unity_v2019.x.ulf
 /opt/Unity/Editor/Unity -manualLicenseFile /Unity_v2019.x.ulf -batchmode -nographics -quit
 
 export TEST_PLATFORM=${INPUT_MODE}
