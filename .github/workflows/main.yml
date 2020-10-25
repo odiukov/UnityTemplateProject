@@ -17,9 +17,9 @@ jobs:
         platform: Android
         buildName: ${{ secrets.PROJECT_NAME }}
     - uses: actions/upload-artifact@v1
-        with:
-          name: Build
-          path: build
+      with:
+        name: Build
+        path: build
     # - run: cp -rf ./Builds/WebGL/${{secrets.PROJECT_NAME}}/ ${{secrets.PROJECT_NAME}}
     # - name: Deploy
     #   uses: JamesIves/github-pages-deploy-action@releases/v2
