@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         unityVersion:
-          - 2019.2.2f1
+          - 2019.4.10f1
         targetPlatform:
           - Android
 #          - iOS
@@ -24,8 +24,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           lfs: true
-      - name: update
-        run: sudo apt-get update && sudo apt-get install -y locales && sudo rm -rf /var/lib/apt/lists/* && sudo localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 #      - name: set up JDK 1.8
 #        uses: actions/setup-java@v1
 #        with:
