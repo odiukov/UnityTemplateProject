@@ -53,4 +53,4 @@ fi
 
 ls -alh $BUILD_PATH_FULL
 ls -la $BUILD_PATH_FULL
-[ -n "$(ls -A $BUILD_PATH_FULL)" ] # fail job if build folder is empty
+# fail job if build folder is empty
