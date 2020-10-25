@@ -12,8 +12,13 @@ cp /BuildCommand.cs $(pwd)/Assets/Editor/
 
 echo "Building for $BUILD_TARGET"
 
-export BUILD_PATH=./Builds/$BUILD_TARGET/
-mkdir -p $BUILD_PATH
+BUILD_FILE="ANDROID.apk"
+BUILD_PATH_FULL="$GITHUB_WORKSPACE/Builds/$BUILD_TARGET/"
+CUSTOM_BUILD_PATH="$BUILD_PATH_FULL/$BUILD_FILE"
+
+echo "Creating \"$BUILD_PATH_FULL\" if it does not exist."
+mkdir -p "$BUILD_PATH_FULL"
+ls -alh "$BUILD_PATH_FULL"
 
 ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' /opt/Unity/Editor/Unity} \
   -projectPath $(pwd) \
@@ -23,7 +28,7 @@ ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x2
   -buildTarget $BUILD_TARGET \
   -customBuildTarget $BUILD_TARGET \
   -customBuildName $BUILD_NAME \
-  -customBuildPath $BUILD_PATH \
+  -customBuildPath $CUSTOM_BUILD_PATH \
   -executeMethod BuildCommand.PerformBuild \
   -logFile /dev/stdout
 
@@ -39,7 +44,7 @@ else
   echo "Unexpected exit code $UNITY_EXIT_CODE";
 fi
 
-echo "::add-path::$BUILD_PATH"
+# echo "::add-path::$BUILD_PATH_FULL"
 
-ls -alh $BUILD_PATH
-[ -n "$(ls -alh $BUILD_PATH)" ] # fail job if build folder is empty
+ls -alh $BUILD_PATH_FULL
+[ -n "$(ls -alh $BUILD_PATH_FULL)" ] # fail job if build folder is empty
