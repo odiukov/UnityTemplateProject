@@ -18,7 +18,7 @@ if [[ "$BUILD_TARGET" == "Android" ]]; then
   BUILD_FILE="Android.apk"
 fi
 
-BUILD_PATH_FULL="$GITHUB_WORKSPACE/Builds/$BUILD_TARGET/"
+BUILD_PATH_FULL="$GITHUB_WORKSPACE/Build/$BUILD_TARGET/"
 CUSTOM_BUILD_PATH="$BUILD_PATH_FULL/$BUILD_FILE"
 
 echo "Creating \"$BUILD_PATH_FULL\" if it does not exist."
