@@ -1,57 +1,26 @@
-name: Actions 😎
+name: CI
 
 on:
   pull_request: {}
   push: { branches: [master] }
 
-env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-
 jobs:
-  buildAndTestForSomePlatforms:
-    name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        unityVersion:
-          - 2019.4.10f1
-        targetPlatform:
-          - Android
-#          - iOS
-#          - WebGL
     steps:
-      - uses: actions/checkout@v2
-        with:
-          lfs: true
-#      - name: set up JDK 1.8
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: 1.8
-      - uses: actions/cache@v1.1.0
-        with:
-          path: Library
-          key: Library
-      - name: free disk space
-        run: |
-          sudo swapoff -a
-          sudo rm -f /swapfile
-          sudo apt clean
-          docker rmi $(docker image ls -aq)
-          df -h
-#      - uses: webbertakken/unity-test-runner@v1.3
-#        id: testRunner
-#        with:
-#          unityVersion: ${{ matrix.unityVersion }}
-#      - uses: actions/upload-artifact@v1
-#        with:
-#          name: Test results (all modes)
-#          path: ${{ steps.testRunner.outputs.artifactsPath }}
-      - uses: webbertakken/unity-builder@v0.10
-        with:
-          unityVersion: ${{ matrix.unityVersion }}
-          targetPlatform: ${{ matrix.targetPlatform }}
-#      - uses: actions/upload-artifact@v1
-#        with:
-#          name: Build
-#          path: build
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+    - uses: ./.github/actions/buildProject
+      with:
+        cypher: ${{ secrets.UNITY_LICENSE }}
+        platform: Android
+        buildName: ${{ secrets.PROJECT_NAME }}
+    # - run: cp -rf ./Builds/WebGL/${{secrets.PROJECT_NAME}}/ ${{secrets.PROJECT_NAME}}
+    # - name: Deploy
+    #   uses: JamesIves/github-pages-deploy-action@releases/v2
+    #   env:
+    #     ACCESS_TOKEN: ${{ secrets.GITHUB_PAT }}
+    #     BRANCH: gh-pages
+    #     FOLDER: ${{ secrets.PROJECT_NAME }}
+    #     BASE_BRANCH: master

@@ -1,0 +1,14 @@
+# action.yml
+name: 'Build'
+description: 'Build'
+inputs:
+  cypher:
+    description: 'Cypher for license'
+    required: true
+  mode:
+    description: 'Test mode'
+    required: true
+    default: 'playmode'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

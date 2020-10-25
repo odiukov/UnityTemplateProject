@@ -1,0 +1,18 @@
+# action.yml
+name: 'Build'
+description: 'Build'
+inputs:
+  cypher:
+    description: 'Cypher for license'
+    required: true
+  platform:  # id of input
+    description: 'Platform'
+    required: true
+    default: 'StandaloneWindows64'
+  buildName:  # id of input
+    description: 'Name of the build'
+    required: true
+    default: 'ExampleProjectName'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
