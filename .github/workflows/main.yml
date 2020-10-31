@@ -29,7 +29,7 @@ jobs:
        with:
          testMode: editmode
          unityVersion: ${{ matrix.unityVersion }}
-         customParameters: -enableCodeCoverage
+         customParameters: -enableCodeCoverage -coverageResultsPath ./editmode-coverage
      - uses: actions/upload-artifact@v1
        with:
          name: Test results (all modes)
@@ -39,5 +39,5 @@ jobs:
        with:
          GITHUB_TOKEN: ${{ secrets.TOKEN }}
          BRANCH: gh-pages
-         FOLDER: ~/CodeCoverage/Report
+         FOLDER: ./editmode-coverage
          CLEAN: true
