@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CoverageReport scope="Summary">
+  <Summary>
+    <Generatedon>10/31/2020 - 16:59:31</Generatedon>
+    <Parser>OpenCoverParser</Parser>
+    <Assemblies>7</Assemblies>
+    <Classes>37</Classes>
+    <Files>36</Files>
+    <Coveredlines>0</Coveredlines>
+    <Uncoveredlines>505</Uncoveredlines>
+    <Coverablelines>505</Coverablelines>
+    <Totallines>1275</Totallines>
+    <Linecoverage>0</Linecoverage>
+    <Coveredbranches>0</Coveredbranches>
+    <Totalbranches>0</Totalbranches>
+  </Summary>
+  <Coverage>
+    <Assembly name="DuckLib.Configs" classes="5" coverage="0" coveredlines="0" coverablelines="32" totallines="105" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="DuckLib.Configs.Config[TConfig,TSerializationPolicy,TLocation]" coverage="0" coveredlines="0" coverablelines="7" totallines="28" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Configs.Location.DocumentLocation" coverage="0" coveredlines="0" coverablelines="13" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Configs.Location.LocalLocation" coverage="0" coveredlines="0" coverablelines="3" totallines="12" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Configs.Location.RemoteLocation" coverage="0" coveredlines="0" coverablelines="3" totallines="10" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Configs.Location.StreamingAssetsLocation" coverage="0" coveredlines="0" coverablelines="6" totallines="22" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+    <Assembly name="DuckLib.Core" classes="9" coverage="0" coveredlines="0" coverablelines="105" totallines="299" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="DuckLib.Core.Builders.PresenterBuilder" coverage="0" coveredlines="0" coverablelines="8" totallines="22" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Commands.AsyncCommand" coverage="0" coveredlines="0" coverablelines="7" totallines="23" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Commands.Command" coverage="0" coveredlines="0" coverablelines="4" totallines="16" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Commands.CommandExecutor" coverage="0" coveredlines="0" coverablelines="28" totallines="58" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Commands.CommandExtensions" coverage="0" coveredlines="0" coverablelines="28" totallines="90" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Extensions.ObservableExtensions" coverage="0" coveredlines="0" coverablelines="4" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Presenters.BasePresenter[TView]" coverage="0" coveredlines="0" coverablelines="4" totallines="16" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Timers.Timer" coverage="0" coveredlines="0" coverablelines="15" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Views.BaseViewWithPresenter[TPresenter,TView]" coverage="0" coveredlines="0" coverablelines="7" totallines="30" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+    <Assembly name="DuckLib.Core.Entitas" classes="10" coverage="0" coveredlines="0" coverablelines="189" totallines="433" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="DuckLib.Core.Attributes.AutoListenerAttribute" coverage="0" coveredlines="0" coverablelines="4" totallines="15" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Converters.AutoConvertToEntity[TController,TEntity]" coverage="0" coveredlines="0" coverablelines="4" totallines="28" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Extensions.ContextExtensions" coverage="0" coveredlines="0" coverablelines="7" totallines="21" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Extensions.EntityConverterExtensions" coverage="0" coveredlines="0" coverablelines="46" totallines="86" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Extensions.FunctionalExtensions" coverage="0" coveredlines="0" coverablelines="24" totallines="45" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Extensions.GameObjectExtensions" coverage="0" coveredlines="0" coverablelines="9" totallines="23" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Installers.EcsInstaller" coverage="0" coveredlines="0" coverablelines="46" totallines="94" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Services.CollidingViewRegister[TEntity]" coverage="0" coveredlines="0" coverablelines="10" totallines="30" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.Services.GameIdentifierService" coverage="0" coveredlines="0" coverablelines="7" totallines="19" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Core.View.ViewService[TEntity]" coverage="0" coveredlines="0" coverablelines="32" totallines="72" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+    <Assembly name="DuckLib.Logger" classes="1" coverage="0" coveredlines="0" coverablelines="6" totallines="17" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="DuckLib.Logger.UnityLogger" coverage="0" coveredlines="0" coverablelines="6" totallines="17" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+    <Assembly name="DuckLib.Purchasing" classes="1" coverage="0" coveredlines="0" coverablelines="10" totallines="30" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="DuckLib.Purchasing.InApp.InAppInfo" coverage="0" coveredlines="0" coverablelines="10" totallines="30" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+    <Assembly name="DuckLib.Serialization" classes="1" coverage="0" coveredlines="0" coverablelines="10" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="DuckLib.Serialization.NewtonsoftJsonSerializationPolicy" coverage="0" coveredlines="0" coverablelines="10" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+    <Assembly name="DuckLib.Social" classes="10" coverage="0" coveredlines="0" coverablelines="153" totallines="408" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="DuckLib.Social.Commands.AuthenticateCommand" coverage="0" coveredlines="0" coverablelines="15" totallines="42" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Social.Commands.AuthenticateResult" coverage="0" coveredlines="0" coverablelines="1" totallines="42" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Social.Commands.LoadAchievementDescriptionsCommand" coverage="0" coveredlines="0" coverablelines="15" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Social.Commands.LoadAchievementsCommand" coverage="0" coveredlines="0" coverablelines="15" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Social.Commands.LoadScoresCommand" coverage="0" coveredlines="0" coverablelines="15" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Social.Commands.LoadUsersCommand" coverage="0" coveredlines="0" coverablelines="15" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Social.Commands.PostScoreCommand" coverage="0" coveredlines="0" coverablelines="15" totallines="38" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Social.Commands.ReportProgressCommand" coverage="0" coveredlines="0" coverablelines="15" totallines="38" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Social.Extensions.SocialPlatformExtensions" coverage="0" coveredlines="0" coverablelines="5" totallines="20" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DuckLib.Social.SocialService" coverage="0" coveredlines="0" coverablelines="42" totallines="95" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+  </Coverage>
+</CoverageReport>
