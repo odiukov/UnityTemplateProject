@@ -27,7 +27,7 @@ jobs:
        with:
          path: Library
          key: Library
-     - run: mkdir ./coverage/Report
+     - run: mkdir -p ./coverage/Report
      - uses: webbertakken/unity-test-runner@v1.4
        id: testRunner
        with:
