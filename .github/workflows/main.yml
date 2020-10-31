@@ -34,7 +34,7 @@ jobs:
        with:
          name: Test results (all modes)
          path: ${{ steps.testRunner.outputs.artifactsPath }}
-     - uses: ./.github/actions/codeCoverage
+     - uses: ./.github/actions/codeCoverageAction
      - name: Deploy 🚀
        uses: JamesIves/github-pages-deploy-action@3.7.1
        with:
