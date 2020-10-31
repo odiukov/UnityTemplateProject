@@ -28,7 +28,7 @@ jobs:
        id: testRunner
        with:
          unityVersion: ${{ matrix.unityVersion }}
-         customParameters: -enableCodeCoverage
+         customParameters: -enableCodeCoverage -coverageResultsPath 
      - uses: actions/upload-artifact@v1
        with:
          name: Test results (all modes)
@@ -38,5 +38,5 @@ jobs:
        with:
          GITHUB_TOKEN: ${{ secrets.TOKEN }}
          BRANCH: gh-pages
-         FOLDER: ../CodeCoverage/Report
+         FOLDER: ~/CodeCoverage/Report
          CLEAN: true
