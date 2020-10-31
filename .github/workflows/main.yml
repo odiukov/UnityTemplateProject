@@ -29,16 +29,15 @@ jobs:
        with:
          testMode: editmode
          unityVersion: ${{ matrix.unityVersion }}
-         customParameters: -enableCodeCoverage
+         customParameters: -enableCodeCoverage -debugCodeOptimization -coverageResultsPath ./coverage -coverageOptions generateHtmlReport;generateBadgeReport
      - uses: actions/upload-artifact@v1
        with:
          name: Test results (all modes)
          path: ${{ steps.testRunner.outputs.artifactsPath }}
-     - uses: ./.github/actions/codeCoverageAction
      - name: Deploy 🚀
        uses: JamesIves/github-pages-deploy-action@3.7.1
        with:
          GITHUB_TOKEN: ${{ secrets.TOKEN }}
          BRANCH: gh-pages
-         FOLDER: $(pwd)/coverage
+         FOLDER: ./coverage
          CLEAN: true
