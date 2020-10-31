@@ -9,7 +9,7 @@ env:
 
 jobs:
  buildAndTestForSomePlatforms:
-   name: Tests on version ${{ matrix.unityVersion }}
+   name: Test in ${{ matrix.testMode }} on version ${{ matrix.unityVersion }}
    runs-on: ubuntu-latest
    strategy:
      fail-fast: false
