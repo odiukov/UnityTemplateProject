@@ -29,11 +29,13 @@ jobs:
        with:
          testMode: editmode
          unityVersion: ${{ matrix.unityVersion }}
-         customParameters: -enableCodeCoverage -coverageResultsPath ./editmode-coverage
+         customParameters: -enableCodeCoverage
      - uses: actions/upload-artifact@v1
        with:
          name: Test results (all modes)
          path: ${{ steps.testRunner.outputs.artifactsPath }}
+     - name: code coverage
+       run: xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' /opt/Unity/Editor/Unity -projectPath "$GITHUB_WORKSPACE/" -batchmode -enableCodeCoverage -coverageResultsPath ./editmode-coverage -coverageOptions generateHtmlReport;generateBadgeReport -quit
      - name: Deploy 🚀
        uses: JamesIves/github-pages-deploy-action@3.7.1
        with:
