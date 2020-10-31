@@ -34,12 +34,11 @@ jobs:
        with:
          name: Test results (all modes)
          path: ${{ steps.testRunner.outputs.artifactsPath }}
-     - name: code coverage
-       run: xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' /opt/Unity/Editor/Unity -projectPath "$GITHUB_WORKSPACE/" -batchmode -enableCodeCoverage -coverageResultsPath ./editmode-coverage -coverageOptions generateHtmlReport;generateBadgeReport -quit
+     - uses: ./.github/actions/codeCoverage
      - name: Deploy 🚀
        uses: JamesIves/github-pages-deploy-action@3.7.1
        with:
          GITHUB_TOKEN: ${{ secrets.TOKEN }}
          BRANCH: gh-pages
-         FOLDER: ./editmode-coverage
+         FOLDER: $(pwd)/coverage
          CLEAN: true
