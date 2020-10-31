@@ -9,8 +9,8 @@ ${UNITY_EXECUTABLE:-xvfb-run --auto-servernum --server-args='-screen 0 640x480x2
   -batchmode \
   -enableCodeCoverage \
   -coverageResultsPath $(pwd)/coverage \
-  -debugCodeOptimization
-  -coverageOptions generateHtmlReport;generateBadgeReport 
+  -debugCodeOptimization \
+  -coverageOptions generateHtmlReport;generateBadgeReport \
   -quit
 
 UNITY_EXIT_CODE=$?
