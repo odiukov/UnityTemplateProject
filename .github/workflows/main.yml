@@ -38,5 +38,5 @@ jobs:
        with:
          GITHUB_TOKEN: ${{ secrets.TOKEN }}
          BRANCH: gh-pages
-         FOLDER: ./CodeCoverage/Report
+         FOLDER: ../CodeCoverage/Report
          CLEAN: true
