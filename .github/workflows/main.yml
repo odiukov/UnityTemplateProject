@@ -27,8 +27,9 @@ jobs:
      - uses: webbertakken/unity-test-runner@v1.4
        id: testRunner
        with:
+         testMode: editmode
          unityVersion: ${{ matrix.unityVersion }}
-         customParameters: -enableCodeCoverage -coverageResultsPath 
+         customParameters: -enableCodeCoverage
      - uses: actions/upload-artifact@v1
        with:
          name: Test results (all modes)
