@@ -29,7 +29,7 @@ jobs:
        with:
          testMode: editmode
          unityVersion: ${{ matrix.unityVersion }}
-         customParameters: -enableCodeCoverage -debugCodeOptimization -coverageResultsPath ./coverage -coverageOptions generateHtmlReport;generateBadgeReport
+         customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage -coverageOptions enableCyclomaticComplexity;generateHtmlReport;generateBadgeReport;assemblyFilters:+DuckLib.*
      - uses: actions/upload-artifact@v1
        with:
          name: Test results (all modes)
