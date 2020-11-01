@@ -1,0 +1,48 @@
+name: Actions 😎
+
+on:
+ pull_request: {}
+ push: { branches: [master] }
+
+env:
+ UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+ buildAndTestForSomePlatforms:
+   name: Test in ${{ matrix.testMode }} on version ${{ matrix.unityVersion }}
+   runs-on: ubuntu-latest
+   strategy:
+     fail-fast: false
+     matrix:
+       unityVersion:
+         - 2019.4.13f1
+       testMode:
+         - playmode
+         - editmode
+   steps:
+     - uses: actions/checkout@v2
+       with:
+         lfs: true
+     - uses: actions/cache@v1.1.0
+       with:
+         path: Library
+         key: Library
+     - run: mkdir -p ./coverage/Report
+     - uses: webbertakken/unity-test-runner@v1.4
+       id: testRunner
+       with:
+         testMode: ${{ matrix.testMode }}
+         unityVersion: ${{ matrix.unityVersion }}
+         customParameters: -debugCodeOptimization -enableCodeCoverage -coverageResultsPath ./coverage -coverageOptions enableCyclomaticComplexity;generateHtmlReport;generateBadgeReport;assemblyFilters:+DuckLib.*
+     - uses: actions/upload-artifact@v1
+       with:
+         name: Test results (all modes)
+         path: ${{ steps.testRunner.outputs.artifactsPath }}
+     - name: Deploy 🚀
+       if: startsWith(matrix.testMode, 'editmode')
+       uses: JamesIves/github-pages-deploy-action@3.7.1
+       with:
+         GITHUB_TOKEN: ${{ secrets.TOKEN }}
+         BRANCH: gh-pages
+         FOLDER: ./coverage/Report
+         CLEAN: true

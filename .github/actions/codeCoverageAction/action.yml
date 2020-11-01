@@ -1,0 +1,6 @@
+# action.yml
+name: 'CodeCoverage'
+description: 'CodeCoverage'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
