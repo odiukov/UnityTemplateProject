@@ -1,5 +1,5 @@
 # UnityTemplateProject
-![Tests](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+![Tests](https://github.com/AlexanderDykov/UnityTemplateProject/actions/workflows/main.yml/badge.svg)
 
 :rocket:[Code coverage](https://alexanderdykov.github.io/UnityTemplateProject)
 
